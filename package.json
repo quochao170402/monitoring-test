@@ -1,9 +1,13 @@
 {
-  "name": "@hao.bui/monitoring-test",
-  "version": "1.0.3",
+  "name": "@quochao170402/monitoring-test",
+  "version": "1.0.0",
   "description": "Monitoring",
   "main": "index.js",
   "devDependencies": {},
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://npm.pkg.github.com"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/quochao170402/monitoring-test.git"
