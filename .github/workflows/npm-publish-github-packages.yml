@@ -17,6 +17,7 @@ jobs:
           registry-url: "https://npm.pkg.github.com"
           scope: "@quochao170402" # <- your account scope
       - run: npm ci
+      - run: npm version patch
       - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
