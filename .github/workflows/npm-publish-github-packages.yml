@@ -2,7 +2,7 @@ name: Bump & Publish
 
 on:
   push:
-    branches: [main] # or your default branch
+    branches: [master] # or your default branch
 
 jobs:
   bump-publish:
