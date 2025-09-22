@@ -69,13 +69,13 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm'
-      
+          cache: "npm"
+
       - name: Install dependencies
         run: npm ci
 
@@ -97,7 +97,7 @@ jobs:
         with:
           node-version: 20
           registry-url: https://npm.pkg.github.com/
-          cache: 'npm'
+          cache: "npm"
 
       - name: Install dependencies
         run: npm ci
@@ -106,6 +106,21 @@ jobs:
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Check if version bump is needed
+        id: check_version
+        run: |
+          # Get the current version from package.json
+          CURRENT_VERSION=$(node -p "require('./package.json').version")
+
+          # Check if this version already exists as a git tag
+          if git rev-parse "v$CURRENT_VERSION" >/dev/null 2>&1; then
+            echo "needs_bump=true" >> $GITHUB_OUTPUT
+          else
+            echo "needs_bump=false" >> $GITHUB_OUTPUT
+          fi
+
+          echo "current_version=$CURRENT_VERSION" >> $GITHUB_OUTPUT
 
       - name: Bump version
         if: steps.check_version.outputs.needs_bump == 'true'
@@ -122,7 +137,7 @@ jobs:
           # Only publish if the package doesn't already exist with this version
           PACKAGE_NAME=$(node -p "require('./package.json').name")
           PACKAGE_VERSION=$(node -p "require('./package.json').version")
-          
+
           echo "Attempting to publish $PACKAGE_NAME@$PACKAGE_VERSION"
           npm publish --access restricted || echo "Package may already exist with this version"
 
