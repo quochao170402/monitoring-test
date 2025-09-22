@@ -107,21 +107,6 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
-      - name: Check if version bump is needed
-        id: check_version
-        run: |
-          # Get the current version from package.json
-          CURRENT_VERSION=$(node -p "require('./package.json').version")
-          
-          # Check if this version already exists as a git tag
-          if git rev-parse "v$CURRENT_VERSION" >/dev/null 2>&1; then
-            echo "needs_bump=true" >> $GITHUB_OUTPUT
-          else
-            echo "needs_bump=false" >> $GITHUB_OUTPUT
-          fi
-          
-          echo "current_version=$CURRENT_VERSION" >> $GITHUB_OUTPUT
-
       - name: Bump version
         if: steps.check_version.outputs.needs_bump == 'true'
         run: |
