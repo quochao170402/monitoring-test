@@ -24,7 +24,7 @@ function initSentry({
     Sentry.flush(2000).finally(() => process.exit(1));
   });
 
-  console.log("Sentry ianc with DSN:", dsn);
+  console.log("Sentry  with DSN:", dsn);
 
   return Sentry;
 }
