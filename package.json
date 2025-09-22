@@ -1,6 +1,6 @@
 {
   "name": "@quochao170402/monitoring-test",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "Monitoring",
   "main": "index.js",
   "devDependencies": {},
